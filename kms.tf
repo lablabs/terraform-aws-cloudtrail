@@ -70,4 +70,3 @@ module "kms-key" {
     aws = aws.destination
   }
 }
-
