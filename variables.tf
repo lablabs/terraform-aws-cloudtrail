@@ -164,7 +164,7 @@ variable "trail_kms_enabled" {
 }
 
 variable "trail_kms_account_ids" {
-  type        = list
+  type        = list(any)
   description = "Specifies all account ids where organization trail will resides"
 }
 

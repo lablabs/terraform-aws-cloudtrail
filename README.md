@@ -18,14 +18,30 @@ A terraform module to create AWS CloudTrail resource.
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.12 |
-| aws | ~> 2.53 |
+| terraform | >= 0.13 |
+| aws | >= 2.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| cloudtrail | cloudposse/cloudtrail/aws | 0.20.0 |
+| cloudtrail-s3-bucket | cloudposse/cloudtrail-s3-bucket/aws | 0.17.2 |
+| kms-key | cloudposse/kms-key/aws | 0.9.1 |
+| label | cloudposse/label/null | 0.24.1 |
+
+## Resources
+
+| Name |
+|------|
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| trail\_kms\_account\_ids | Specifies all account ids where organization trail will resides | `list` | n/a | yes |
+| trail\_kms\_account\_ids | Specifies all account ids where organization trail will resides | `list(any)` | n/a | yes |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | bucket\_acl | The canned ACL to apply. We recommend log-delivery-write for compatibility with AWS services | `string` | `"log-delivery-write"` | no |
 | bucket\_enable\_glacier\_transition | Glacier transition might just increase your bill. Set to false to disable lifecycle transitions to AWS Glacier. | `bool` | `false` | no |
@@ -72,7 +88,6 @@ A terraform module to create AWS CloudTrail resource.
 | trail\_arn | CloudTrail ARN |
 | trail\_home\_region | CloudTrail region in which the trail was created |
 | trail\_id | CloudTrail name |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contributing and reporting issues

@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "trail_kms" {
 
 module "kms-key" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.4.0"
+  version = "0.9.1"
 
   namespace   = module.label.namespace
   environment = module.label.environment
