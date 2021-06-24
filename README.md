@@ -58,6 +58,7 @@ A terraform module to create AWS CloudTrail resource.
 | environment | Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT' | `string` | `""` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `""` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `""` | no |
+| stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | trail\_bucket | Set bucket name for the Organization trail, meaningful only if bucket\_enabled is set to false | `string` | `""` | no |
 | trail\_cloud\_watch\_logs\_group\_arn | Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered | `string` | `""` | no |
