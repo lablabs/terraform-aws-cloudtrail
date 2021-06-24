@@ -10,6 +10,11 @@ variable "environment" {
   description = "Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT'"
 }
 
+variable "stage" {
+  type        = string
+  default     = null
+  description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
+}
 variable "name" {
   type        = string
   default     = ""
