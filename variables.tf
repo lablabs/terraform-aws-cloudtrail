@@ -102,6 +102,18 @@ variable "bucket_kms_master_key_arn" {
   default     = ""
 }
 
+variable "bucket_allow_ssl_requests_only" {
+  type        = bool
+  default     = false
+  description = "Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests"
+}
+
+variable "bucket_versioning_enabled" {
+  type        = bool
+  description = "Enable object versioning, keeping multiple variants of an object in the same bucket"
+  default     = false
+}
+
 variable "trail_enabled" {
   type        = bool
   description = "Set to false to prevent the module from creating the Organization trail"
