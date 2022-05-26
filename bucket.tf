@@ -26,7 +26,7 @@ module "cloudtrail-s3-bucket" {
 }
 
 data "aws_iam_policy_document" "default" {
-  count       = var.bucket_enabled ? 1 : 0
+  count = var.bucket_enabled ? 1 : 0
 
   statement {
     sid = "AWSCloudTrailAclCheck"
@@ -75,5 +75,5 @@ data "aws_iam_policy_document" "default" {
 data "aws_partition" "current" {}
 
 locals {
-  arn_format             = "arn:${data.aws_partition.current.partition}"
+  arn_format = "arn:${data.aws_partition.current.partition}"
 }

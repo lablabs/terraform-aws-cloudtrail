@@ -7,6 +7,14 @@ data "aws_caller_identity" "kms" {
 }
 
 data "aws_iam_policy_document" "trail_kms" {
+  #checkov:skip=CKV_AWS_1
+  #checkov:skip=CKV_AWS_41
+  #checkov:skip=CKV_AWS_49
+  #checkov:skip=CKV_AWS_107
+  #checkov:skip=CKV_AWS_108
+  #checkov:skip=CKV_AWS_109
+  #checkov:skip=CKV_AWS_110
+  #checkov:skip=CKV_AWS_111
   count = var.trail_enabled && var.trail_kms_enabled ? 1 : 0
 
   statement {
