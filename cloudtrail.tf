@@ -1,6 +1,6 @@
 module "cloudtrail" {
   source  = "cloudposse/cloudtrail/aws"
-  version = "0.20.0"
+  version = "0.22.0"
 
   namespace   = module.label.namespace
   environment = module.label.environment
