@@ -1,6 +1,6 @@
 # AWS CloudTrail Terraform module
 
-[![Labyrinth Labs logo](ll-logo.png)](https://www.lablabs.io)
+[<img src="https://lablabs.io/static/ll-logo.png" width=350px>](https://lablabs.io/)
 
 We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at https://lablabs.io/
 
@@ -13,13 +13,17 @@ We help companies build, run, deploy and scale software and infrastructure by em
 
 A terraform module to create AWS CloudTrail resource.
 
+## Related Projects
+
+Check out other [terraform modules](https://github.com/orgs/lablabs/repositories?q=terraform-aws&type=public&language=&sort=).
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.4 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.19 |
 
 ## Modules
 
@@ -103,7 +107,7 @@ Feel free to create an issue in this repository if you have questions, suggestio
 
 We want to provide high quality code and modules. For this reason we are using
 several [pre-commit hooks](.pre-commit-config.yaml) and
-[GitHub Actions workflow](.github/workflows/main.yml). A pull-request to the
+[GitHub Actions workflow](.github/workflows/). A pull-request to the
 master branch will trigger these validations and lints automatically. Please
 check your code before you will create pull-requests. See
 [pre-commit documentation](https://pre-commit.com/) and
