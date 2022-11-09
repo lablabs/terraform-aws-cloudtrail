@@ -51,43 +51,28 @@ variable "bucket_acl" {
   default     = "log-delivery-write"
 }
 
-variable "bucket_expiration_days" {
-  description = "Number of days after which to expunge the objects"
-  default     = 90
-}
-
 variable "bucket_lifecycle_rule_enabled" {
   type        = bool
   description = "Enable lifecycle events on this bucket"
   default     = false
 }
 
-variable "bucket_lifecycle_prefix" {
-  type        = string
-  description = "Prefix filter. Used to manage object lifecycle events"
-  default     = ""
-}
+variable "bucket_lifecycle_configuration_rules" {
+  type = list(object({
+    enabled = bool
+    id      = string
 
-variable "bucket_lifecycle_tags" {
-  type        = map(string)
-  description = "Tags filter. Used to manage object lifecycle events"
-  default     = {}
-}
+    abort_incomplete_multipart_upload_days = number
 
-variable "bucket_standard_transition_days" {
-  description = "Number of days to persist in the standard storage tier before moving to the infrequent access tier"
-  default     = 30
-}
+    filter_and = any
+    expiration = any
+    transition = list(any)
 
-variable "bucket_enable_glacier_transition" {
-  type        = bool
-  default     = false
-  description = "Glacier transition might just increase your bill. Set to false to disable lifecycle transitions to AWS Glacier."
-}
-
-variable "bucket_glacier_transition_days" {
-  description = "Number of days after which to move the data to the glacier storage tier"
-  default     = 60
+    noncurrent_version_expiration = any
+    noncurrent_version_transition = list(any)
+  }))
+  description = "A list of S3 bucket v2 lifecycle rules"
+  default     = []
 }
 
 variable "bucket_sse_algorithm" {
@@ -201,4 +186,22 @@ variable "trail_kms_enable_key_rotation" {
   type        = bool
   default     = false
   description = "Specifies whether key rotation is enabled"
+}
+
+variable "trail_kms_key_usage" {
+  type        = string
+  default     = "ENCRYPT_DECRYPT"
+  description = "Specifies the intended use of the key. Valid values: `ENCRYPT_DECRYPT` or `SIGN_VERIFY`."
+}
+
+variable "trail_kms_customer_master_key_spec" {
+  type        = string
+  default     = "SYMMETRIC_DEFAULT"
+  description = "Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports. Valid values: `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, or `ECC_SECG_P256K1`."
+}
+
+variable "trail_kms_multi_region" {
+  type        = bool
+  default     = false
+  description = "Indicates whether the KMS key is a multi-Region (true) or regional (false) key."
 }

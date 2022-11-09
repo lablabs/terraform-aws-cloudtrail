@@ -1,6 +1,6 @@
 # AWS CloudTrail Terraform module
 
-[![Labyrinth Labs logo](ll-logo.png)](https://www.lablabs.io)
+[<img src="https://lablabs.io/static/ll-logo.png" width=350px>](https://lablabs.io/)
 
 We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at https://lablabs.io/
 
@@ -13,21 +13,25 @@ We help companies build, run, deploy and scale software and infrastructure by em
 
 A terraform module to create AWS CloudTrail resource.
 
+## Related Projects
+
+Check out other [terraform modules](https://github.com/orgs/lablabs/repositories?q=terraform-aws&type=public&language=&sort=).
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.19 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.20.0 |
-| <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 0.28.0 |
-| <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.9.1 |
+| <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.22.0 |
+| <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 1.0.0 |
+| <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -47,17 +51,12 @@ A terraform module to create AWS CloudTrail resource.
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_bucket_acl"></a> [bucket\_acl](#input\_bucket\_acl) | The canned ACL to apply. We recommend log-delivery-write for compatibility with AWS services | `string` | `"log-delivery-write"` | no |
 | <a name="input_bucket_allow_ssl_requests_only"></a> [bucket\_allow\_ssl\_requests\_only](#input\_bucket\_allow\_ssl\_requests\_only) | Set to `true` to require requests to use Secure Socket Layer (HTTPS/SSL). This will explicitly deny access to HTTP requests | `bool` | `false` | no |
-| <a name="input_bucket_enable_glacier_transition"></a> [bucket\_enable\_glacier\_transition](#input\_bucket\_enable\_glacier\_transition) | Glacier transition might just increase your bill. Set to false to disable lifecycle transitions to AWS Glacier. | `bool` | `false` | no |
 | <a name="input_bucket_enabled"></a> [bucket\_enabled](#input\_bucket\_enabled) | Set to `false` to prevent the module from creating s3 bucket | `bool` | `false` | no |
-| <a name="input_bucket_expiration_days"></a> [bucket\_expiration\_days](#input\_bucket\_expiration\_days) | Number of days after which to expunge the objects | `number` | `90` | no |
 | <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | (Optional, Default:false ) A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable | `bool` | `false` | no |
-| <a name="input_bucket_glacier_transition_days"></a> [bucket\_glacier\_transition\_days](#input\_bucket\_glacier\_transition\_days) | Number of days after which to move the data to the glacier storage tier | `number` | `60` | no |
 | <a name="input_bucket_kms_master_key_arn"></a> [bucket\_kms\_master\_key\_arn](#input\_bucket\_kms\_master\_key\_arn) | The AWS KMS master key ARN used for the SSE-KMS encryption. This can only be used when you set the value of sse\_algorithm as aws:kms. The default aws/s3 AWS KMS master key is used if this element is absent while the sse\_algorithm is aws:kms | `string` | `""` | no |
-| <a name="input_bucket_lifecycle_prefix"></a> [bucket\_lifecycle\_prefix](#input\_bucket\_lifecycle\_prefix) | Prefix filter. Used to manage object lifecycle events | `string` | `""` | no |
+| <a name="input_bucket_lifecycle_configuration_rules"></a> [bucket\_lifecycle\_configuration\_rules](#input\_bucket\_lifecycle\_configuration\_rules) | A list of S3 bucket v2 lifecycle rules | <pre>list(object({<br>    enabled = bool<br>    id      = string<br><br>    abort_incomplete_multipart_upload_days = number<br><br>    filter_and = any<br>    expiration = any<br>    transition = list(any)<br><br>    noncurrent_version_expiration = any<br>    noncurrent_version_transition = list(any)<br>  }))</pre> | `[]` | no |
 | <a name="input_bucket_lifecycle_rule_enabled"></a> [bucket\_lifecycle\_rule\_enabled](#input\_bucket\_lifecycle\_rule\_enabled) | Enable lifecycle events on this bucket | `bool` | `false` | no |
-| <a name="input_bucket_lifecycle_tags"></a> [bucket\_lifecycle\_tags](#input\_bucket\_lifecycle\_tags) | Tags filter. Used to manage object lifecycle events | `map(string)` | `{}` | no |
 | <a name="input_bucket_sse_algorithm"></a> [bucket\_sse\_algorithm](#input\_bucket\_sse\_algorithm) | The server-side encryption algorithm to use. Valid values are AES256 and aws:kms | `string` | `"AES256"` | no |
-| <a name="input_bucket_standard_transition_days"></a> [bucket\_standard\_transition\_days](#input\_bucket\_standard\_transition\_days) | Number of days to persist in the standard storage tier before moving to the infrequent access tier | `number` | `30` | no |
 | <a name="input_bucket_versioning_enabled"></a> [bucket\_versioning\_enabled](#input\_bucket\_versioning\_enabled) | Enable object versioning, keeping multiple variants of an object in the same bucket | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT' | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'jenkins' | `string` | `""` | no |
@@ -74,10 +73,13 @@ A terraform module to create AWS CloudTrail resource.
 | <a name="input_trail_is_multi_region_trail"></a> [trail\_is\_multi\_region\_trail](#input\_trail\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `false` | no |
 | <a name="input_trail_is_organization_trail"></a> [trail\_is\_organization\_trail](#input\_trail\_is\_organization\_trail) | The trail is an AWS Organizations trail | `bool` | `false` | no |
 | <a name="input_trail_kms_alias"></a> [trail\_kms\_alias](#input\_trail\_kms\_alias) | The display name of the alias. The name must start with the word `alias` followed by a forward slash, leave default for auto generated alias | `string` | `""` | no |
+| <a name="input_trail_kms_customer_master_key_spec"></a> [trail\_kms\_customer\_master\_key\_spec](#input\_trail\_kms\_customer\_master\_key\_spec) | Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports. Valid values: `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, or `ECC_SECG_P256K1`. | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | <a name="input_trail_kms_description"></a> [trail\_kms\_description](#input\_trail\_kms\_description) | The description of the key as viewed in AWS console | `string` | `"KMS key to encrypt the logs delivered by CloudTrail"` | no |
 | <a name="input_trail_kms_enable_key_rotation"></a> [trail\_kms\_enable\_key\_rotation](#input\_trail\_kms\_enable\_key\_rotation) | Specifies whether key rotation is enabled | `bool` | `false` | no |
 | <a name="input_trail_kms_enabled"></a> [trail\_kms\_enabled](#input\_trail\_kms\_enabled) | Set to false to prevent the module from automatic KMS key creation | `bool` | `false` | no |
 | <a name="input_trail_kms_key_arn"></a> [trail\_kms\_key\_arn](#input\_trail\_kms\_key\_arn) | Specifies the KMS key ARN to use to encrypt the logs delivered by CloudTrail, meaningful only if trail\_kms\_enabled is set to false | `string` | `""` | no |
+| <a name="input_trail_kms_key_usage"></a> [trail\_kms\_key\_usage](#input\_trail\_kms\_key\_usage) | Specifies the intended use of the key. Valid values: `ENCRYPT_DECRYPT` or `SIGN_VERIFY`. | `string` | `"ENCRYPT_DECRYPT"` | no |
+| <a name="input_trail_kms_multi_region"></a> [trail\_kms\_multi\_region](#input\_trail\_kms\_multi\_region) | Indicates whether the KMS key is a multi-Region (true) or regional (false) key. | `bool` | `false` | no |
 
 ## Outputs
 
@@ -103,7 +105,7 @@ Feel free to create an issue in this repository if you have questions, suggestio
 
 We want to provide high quality code and modules. For this reason we are using
 several [pre-commit hooks](.pre-commit-config.yaml) and
-[GitHub Actions workflow](.github/workflows/main.yml). A pull-request to the
+[GitHub Actions workflow](.github/workflows/). A pull-request to the
 master branch will trigger these validations and lints automatically. Please
 check your code before you will create pull-requests. See
 [pre-commit documentation](https://pre-commit.com/) and
