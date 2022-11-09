@@ -31,7 +31,7 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 |------|--------|---------|
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.20.0 |
 | <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 1.0.0 |
-| <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.9.1 |
+| <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
@@ -73,10 +73,13 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | <a name="input_trail_is_multi_region_trail"></a> [trail\_is\_multi\_region\_trail](#input\_trail\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `false` | no |
 | <a name="input_trail_is_organization_trail"></a> [trail\_is\_organization\_trail](#input\_trail\_is\_organization\_trail) | The trail is an AWS Organizations trail | `bool` | `false` | no |
 | <a name="input_trail_kms_alias"></a> [trail\_kms\_alias](#input\_trail\_kms\_alias) | The display name of the alias. The name must start with the word `alias` followed by a forward slash, leave default for auto generated alias | `string` | `""` | no |
+| <a name="input_trail_kms_customer_master_key_spec"></a> [trail\_kms\_customer\_master\_key\_spec](#input\_trail\_kms\_customer\_master\_key\_spec) | Specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports. Valid values: `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, or `ECC_SECG_P256K1`. | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | <a name="input_trail_kms_description"></a> [trail\_kms\_description](#input\_trail\_kms\_description) | The description of the key as viewed in AWS console | `string` | `"KMS key to encrypt the logs delivered by CloudTrail"` | no |
 | <a name="input_trail_kms_enable_key_rotation"></a> [trail\_kms\_enable\_key\_rotation](#input\_trail\_kms\_enable\_key\_rotation) | Specifies whether key rotation is enabled | `bool` | `false` | no |
 | <a name="input_trail_kms_enabled"></a> [trail\_kms\_enabled](#input\_trail\_kms\_enabled) | Set to false to prevent the module from automatic KMS key creation | `bool` | `false` | no |
 | <a name="input_trail_kms_key_arn"></a> [trail\_kms\_key\_arn](#input\_trail\_kms\_key\_arn) | Specifies the KMS key ARN to use to encrypt the logs delivered by CloudTrail, meaningful only if trail\_kms\_enabled is set to false | `string` | `""` | no |
+| <a name="input_trail_kms_key_usage"></a> [trail\_kms\_key\_usage](#input\_trail\_kms\_key\_usage) | Specifies the intended use of the key. Valid values: `ENCRYPT_DECRYPT` or `SIGN_VERIFY`. | `string` | `"ENCRYPT_DECRYPT"` | no |
+| <a name="input_trail_kms_multi_region"></a> [trail\_kms\_multi\_region](#input\_trail\_kms\_multi\_region) | Indicates whether the KMS key is a multi-Region (true) or regional (false) key. | `bool` | `false` | no |
 
 ## Outputs
 

@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "trail_kms" {
 
 module "kms-key" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.9.1"
+  version = "0.12.1"
 
   namespace   = module.label.namespace
   environment = module.label.environment
@@ -72,6 +72,11 @@ module "kms-key" {
   description = var.trail_kms_description
   alias       = local.trail_kms_alias
   policy      = join("", data.aws_iam_policy_document.trail_kms.*.json)
+
+  enable_key_rotation      = var.trail_kms_enable_key_rotation
+  key_usage                = var.trail_kms_key_usage
+  customer_master_key_spec = var.trail_kms_customer_master_key_spec
+  multi_region             = var.trail_kms_multi_region
 
   providers = {
     aws = aws.destination
