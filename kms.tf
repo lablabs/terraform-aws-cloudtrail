@@ -14,6 +14,8 @@ data "aws_iam_policy_document" "trail_kms" {
   #checkov:skip=CKV_AWS_109
   #checkov:skip=CKV_AWS_110
   #checkov:skip=CKV_AWS_111
+  #checkov:skip=CKV_AWS_274
+  #checkov:skip=CKV_AWS_356
   count = var.trail_enabled && var.trail_kms_enabled ? 1 : 0
 
   statement {

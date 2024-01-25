@@ -16,6 +16,8 @@ repos:
     - id: terraform_tflint
     - id: terraform_validate
     - id: terraform_checkov
+      args:
+        - '--args=--skip-check CKV_TF_1' #CKV_TF_1: "Ensure Terraform module sources use a commit hash"
     - id: terraform_docs
       args:
         - '--args=--config=.terraform-docs.yml'

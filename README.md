@@ -30,7 +30,7 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | cloudposse/cloudtrail/aws | 0.22.0 |
-| <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 1.0.0 |
+| <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 1.2.0 |
 | <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
 
