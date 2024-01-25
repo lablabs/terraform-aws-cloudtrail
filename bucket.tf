@@ -1,6 +1,6 @@
 module "cloudtrail-s3-bucket" {
   source  = "cloudposse/s3-log-storage/aws"
-  version = "1.0.0"
+  version = "1.2.0"
 
   context = module.label.context
 
