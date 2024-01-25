@@ -73,7 +73,7 @@ module "kms-key" {
   enabled     = var.trail_enabled && var.trail_kms_enabled ? true : false
   description = var.trail_kms_description
   alias       = local.trail_kms_alias
-  policy      = join("", data.aws_iam_policy_document.trail_kms.*.json)
+  policy      = join("", data.aws_iam_policy_document.trail_kms[*].json)
 
   enable_key_rotation      = var.trail_kms_enable_key_rotation
   key_usage                = var.trail_kms_key_usage
