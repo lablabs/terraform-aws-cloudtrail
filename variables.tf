@@ -99,6 +99,16 @@ variable "bucket_versioning_enabled" {
   default     = false
 }
 
+variable "bucket_object_lock_configuration" {
+  type = object({
+    mode  = optional(string, "GOVERNANCE") # Valid values are GOVERNANCE and COMPLIANCE
+    days  = optional(number)
+    years = optional(number)
+  })
+  default     = null
+  description = "A configuration for S3 object locking (WORM), preventing objects from being deleted or overwritten for a fixed retention period. Set exactly one of `days` or `years`; `mode` defaults to `GOVERNANCE`. Requires `bucket_versioning_enabled` to be `true`. Can be enabled on an existing bucket; the default retention applies only to objects written after it is enabled"
+}
+
 variable "trail_enabled" {
   type        = bool
   description = "Set to false to prevent the module from creating the Organization trail"
