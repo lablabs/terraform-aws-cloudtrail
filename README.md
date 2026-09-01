@@ -1,23 +1,18 @@
-# AWS CloudTrail Terraform module
+<!-- BEGIN_TF_DOCS -->
+[<img src="https://cdn.prod.website-files.com/66b4bc4ca83726f5a87183ab/685136470d15399f106cb13e_adcbd542a834a1942d077cd5c09d3057_GitHub%20cover%20image%201584x396.png">](https://lablabs.io/)
 
-[<img src="https://lablabs.io/static/ll-logo.png" width=350px>](https://lablabs.io/)
+**About us:**</br>
+[Labyrinth Labs](https://lablabs.io/) is a one-stop-shop for **DevOps, Cloud & Kubernetes**! We specialize in creating **powerful**, **scalable** and **cloud-native platforms** tailored to elevate your business.
 
-We help companies build, run, deploy and scale software and infrastructure by embracing the right technologies and principles. Check out our website at https://lablabs.io/
+[As a team of experienced DevOps engineers](https://lablabs.io/about/), we know how to help our customers start their journey in the cloud, address the issues they have in their current setups and provide a **strategic solution to transform their infrastructure**.
 
----
-
-![Terraform validation](https://github.com/lablabs/terraform-aws-cloudtrail/workflows/Terraform%20validation/badge.svg?branch=master)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-success?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-
-## Description
+----
+# AWS Cloudtrail Terraform module
 
 A terraform module to create AWS CloudTrail resource.
 
-## Related Projects
-
-Check out other [terraform modules](https://github.com/orgs/lablabs/repositories?q=terraform-aws&type=public&language=&sort=).
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+[![Terraform validate](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/validate.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/validate.yaml)
+[![pre-commit](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/pre-commit.yaml)
 ## Requirements
 
 | Name | Version |
@@ -33,7 +28,6 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | <a name="module_cloudtrail-s3-bucket"></a> [cloudtrail-s3-bucket](#module\_cloudtrail-s3-bucket) | cloudposse/s3-log-storage/aws | 1.4.2 |
 | <a name="module_kms-key"></a> [kms-key](#module\_kms-key) | cloudposse/kms-key/aws | 0.12.1 |
 | <a name="module_label"></a> [label](#module\_label) | cloudposse/label/null | 0.25.0 |
-
 ## Resources
 
 | Name | Type |
@@ -43,7 +37,6 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | [aws_iam_policy_document.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.trail_kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -55,9 +48,9 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | <a name="input_bucket_enabled"></a> [bucket\_enabled](#input\_bucket\_enabled) | Set to `false` to prevent the module from creating s3 bucket | `bool` | `false` | no |
 | <a name="input_bucket_force_destroy"></a> [bucket\_force\_destroy](#input\_bucket\_force\_destroy) | (Optional, Default:false ) A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable | `bool` | `false` | no |
 | <a name="input_bucket_kms_master_key_arn"></a> [bucket\_kms\_master\_key\_arn](#input\_bucket\_kms\_master\_key\_arn) | The AWS KMS master key ARN used for the SSE-KMS encryption. This can only be used when you set the value of sse\_algorithm as aws:kms. The default aws/s3 AWS KMS master key is used if this element is absent while the sse\_algorithm is aws:kms | `string` | `""` | no |
-| <a name="input_bucket_lifecycle_configuration_rules"></a> [bucket\_lifecycle\_configuration\_rules](#input\_bucket\_lifecycle\_configuration\_rules) | A list of S3 bucket v2 lifecycle rules | <pre>list(object({<br>    enabled = bool<br>    id      = string<br><br>    abort_incomplete_multipart_upload_days = number<br><br>    filter_and = any<br>    expiration = any<br>    transition = list(any)<br><br>    noncurrent_version_expiration = any<br>    noncurrent_version_transition = list(any)<br>  }))</pre> | `[]` | no |
+| <a name="input_bucket_lifecycle_configuration_rules"></a> [bucket\_lifecycle\_configuration\_rules](#input\_bucket\_lifecycle\_configuration\_rules) | A list of S3 bucket v2 lifecycle rules | <pre>list(object({<br/>    enabled = bool<br/>    id      = string<br/><br/>    abort_incomplete_multipart_upload_days = number<br/><br/>    filter_and = any<br/>    expiration = any<br/>    transition = list(any)<br/><br/>    noncurrent_version_expiration = any<br/>    noncurrent_version_transition = list(any)<br/>  }))</pre> | `[]` | no |
 | <a name="input_bucket_lifecycle_rule_enabled"></a> [bucket\_lifecycle\_rule\_enabled](#input\_bucket\_lifecycle\_rule\_enabled) | Enable lifecycle events on this bucket | `bool` | `false` | no |
-| <a name="input_bucket_object_lock_configuration"></a> [bucket\_object\_lock\_configuration](#input\_bucket\_object\_lock\_configuration) | A configuration for S3 object locking (WORM), preventing objects from being deleted or overwritten for a fixed retention period. Set exactly one of `days` or `years`; `mode` defaults to `GOVERNANCE`. Requires `bucket_versioning_enabled` to be `true`. Can be enabled on an existing bucket; the default retention applies only to objects written after it is enabled. | <pre>object({<br>    mode                    = string # Valid values are GOVERNANCE and COMPLIANCE<br>    days                    = optional(number)<br>    years                   = optional(number)<br>    compliance_mode_enabled = optional(bool, false)<br>  })</pre> | `null` | no |
+| <a name="input_bucket_object_lock_configuration"></a> [bucket\_object\_lock\_configuration](#input\_bucket\_object\_lock\_configuration) | A configuration for S3 object locking (WORM), preventing objects from being deleted or overwritten for a fixed retention period. Set exactly one of `days` or `years`; `mode` defaults to `GOVERNANCE`. Requires `bucket_versioning_enabled` to be `true`. Can be enabled on an existing bucket; the default retention applies only to objects written after it is enabled. | <pre>object({<br/>    mode                    = string # Valid values are GOVERNANCE and COMPLIANCE<br/>    days                    = optional(number)<br/>    years                   = optional(number)<br/>    compliance_mode_enabled = optional(bool, false)<br/>  })</pre> | `null` | no |
 | <a name="input_bucket_sse_algorithm"></a> [bucket\_sse\_algorithm](#input\_bucket\_sse\_algorithm) | The server-side encryption algorithm to use. Valid values are AES256 and aws:kms | `string` | `"AES256"` | no |
 | <a name="input_bucket_versioning_enabled"></a> [bucket\_versioning\_enabled](#input\_bucket\_versioning\_enabled) | Enable object versioning, keeping multiple variants of an object in the same bucket | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT' | `string` | `""` | no |
@@ -82,7 +75,6 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | <a name="input_trail_kms_key_arn"></a> [trail\_kms\_key\_arn](#input\_trail\_kms\_key\_arn) | Specifies the KMS key ARN to use to encrypt the logs delivered by CloudTrail, meaningful only if trail\_kms\_enabled is set to false | `string` | `""` | no |
 | <a name="input_trail_kms_key_usage"></a> [trail\_kms\_key\_usage](#input\_trail\_kms\_key\_usage) | Specifies the intended use of the key. Valid values: `ENCRYPT_DECRYPT` or `SIGN_VERIFY`. | `string` | `"ENCRYPT_DECRYPT"` | no |
 | <a name="input_trail_kms_multi_region"></a> [trail\_kms\_multi\_region](#input\_trail\_kms\_multi\_region) | Indicates whether the KMS key is a multi-Region (true) or regional (false) key. | `bool` | `false` | no |
-
 ## Outputs
 
 | Name | Description |
@@ -97,8 +89,6 @@ Check out other [terraform modules](https://github.com/orgs/lablabs/repositories
 | <a name="output_trail_arn"></a> [trail\_arn](#output\_trail\_arn) | CloudTrail ARN |
 | <a name="output_trail_home_region"></a> [trail\_home\_region](#output\_trail\_home\_region) | CloudTrail region in which the trail was created |
 | <a name="output_trail_id"></a> [trail\_id](#output\_trail\_id) | CloudTrail name |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Contributing and reporting issues
 
 Feel free to create an issue in this repository if you have questions, suggestions or feature requests.
@@ -107,13 +97,12 @@ Feel free to create an issue in this repository if you have questions, suggestio
 
 We want to provide high quality code and modules. For this reason we are using
 several [pre-commit hooks](.pre-commit-config.yaml) and
-[GitHub Actions workflow](.github/workflows/). A pull-request to the
-master branch will trigger these validations and lints automatically. Please
+[GitHub Actions workflows](.github/workflows/). A pull-request to the
+main branch will trigger these validations and lints automatically. Please
 check your code before you will create pull-requests. See
 [pre-commit documentation](https://pre-commit.com/) and
 [GitHub Actions documentation](https://docs.github.com/en/actions) for further
 details.
-
 
 ## License
 
@@ -121,19 +110,22 @@ details.
 
 See [LICENSE](LICENSE) for full details.
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+```plan
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
-      https://www.apache.org/licenses/LICENSE-2.0
+  <https://www.apache.org/licenses/LICENSE-2.0>
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+```
+<!-- END_TF_DOCS -->

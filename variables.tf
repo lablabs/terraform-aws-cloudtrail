@@ -115,7 +115,7 @@ variable "bucket_object_lock_configuration" {
   }
 
   validation {
-    condition     = var.bucket_object_lock_configuration.mode == "COMPLIANCE" ? var.bucket_object_lock_configuration.compliance_mode_enabled == true : true
+    condition     = var.bucket_object_lock_configuration != null && var.bucket_object_lock_configuration.mode == "COMPLIANCE" ? var.bucket_object_lock_configuration.compliance_mode_enabled == true : true
     error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_configuration.compliance_mode_enabled to true."
   }
 }
