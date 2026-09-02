@@ -14,34 +14,10 @@ module "cloudtrail-s3-bucket" {
   lifecycle_configuration_rules = var.bucket_lifecycle_configuration_rules
   allow_ssl_requests_only       = var.bucket_allow_ssl_requests_only
   versioning_enabled            = var.bucket_versioning_enabled
+  object_lock_configuration     = var.bucket_object_lock_configuration
 
   providers = {
     aws = aws.destination
-  }
-}
-
-resource "aws_s3_bucket_object_lock_configuration" "default" {
-  count    = var.bucket_enabled && var.bucket_object_lock_configuration != null ? 1 : 0
-  provider = aws.destination
-
-  bucket = module.cloudtrail-s3-bucket.bucket_id
-
-  rule {
-    default_retention {
-      mode  = var.bucket_object_lock_configuration.mode
-      days  = var.bucket_object_lock_configuration.days
-      years = var.bucket_object_lock_configuration.years
-    }
-  }
-
-  # Object Lock requires versioning to be enabled on the bucket first
-  depends_on = [module.cloudtrail-s3-bucket]
-
-  lifecycle {
-    precondition {
-      condition     = var.bucket_versioning_enabled
-      error_message = "bucket_versioning_enabled must be true when bucket_object_lock_configuration is set."
-    }
   }
 }
 

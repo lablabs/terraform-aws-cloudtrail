@@ -101,13 +101,17 @@ variable "bucket_versioning_enabled" {
 
 variable "bucket_object_lock_configuration" {
   type = object({
-    mode                    = string # Valid values are GOVERNANCE and COMPLIANCE
-    days                    = optional(number)
-    years                   = optional(number)
-    compliance_mode_enabled = optional(bool, false)
+    mode  = string # Valid values are GOVERNANCE and COMPLIANCE
+    days  = number
+    years = number
   })
   default     = null
   description = "A configuration for S3 object locking (WORM), preventing objects from being deleted or overwritten for a fixed retention period. Set exactly one of `days` or `years`; `mode` defaults to `GOVERNANCE`. Requires `bucket_versioning_enabled` to be `true`. Can be enabled on an existing bucket; the default retention applies only to objects written after it is enabled."
+
+  validation {
+    condition     = var.bucket_object_lock_configuration != null ? var.bucket_object_lock_configuration == true : true
+    error_message = "var.bucket_versioning_enabled must be true when var.bucket_object_lock_configuration is set."
+  }
 
   validation {
     condition     = var.bucket_object_lock_configuration != null ? contains(["GOVERNANCE", "COMPLIANCE"], var.bucket_object_lock_configuration.mode) : true
@@ -115,9 +119,15 @@ variable "bucket_object_lock_configuration" {
   }
 
   validation {
-    condition     = var.bucket_object_lock_configuration != null && var.bucket_object_lock_configuration.mode == "COMPLIANCE" ? var.bucket_object_lock_configuration.compliance_mode_enabled == true : true
-    error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_configuration.compliance_mode_enabled to true."
+    condition     = var.bucket_object_lock_configuration != null && var.bucket_object_lock_configuration.mode == "COMPLIANCE" ? var.bucket_object_lock_compliance_mode_enabled == true : true
+    error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_compliance_mode_enabled to true."
   }
+}
+
+variable "bucket_object_lock_compliance_mode_enabled" {
+  type        = bool
+  default     = false
+  description = "When enabling COMPLIANCE mode in var.bucket_object_lock_configuration, set to true to confirm you understand the potential risks."
 }
 
 variable "trail_enabled" {
