@@ -14,7 +14,11 @@ module "cloudtrail-s3-bucket" {
   lifecycle_configuration_rules = var.bucket_lifecycle_configuration_rules
   allow_ssl_requests_only       = var.bucket_allow_ssl_requests_only
   versioning_enabled            = var.bucket_versioning_enabled
-  object_lock_configuration     = var.bucket_object_lock_configuration
+  object_lock_configuration = var.bucket_object_lock_configuration != null ? {
+    mode  = var.bucket_object_lock_configuration.mode
+    days  = var.bucket_object_lock_configuration.days
+    years = var.bucket_object_lock_configuration.years
+  } : null
 
   providers = {
     aws = aws.destination
