@@ -1,3 +1,12 @@
+/**
+ * # AWS Cloudtrail Terraform module
+ *
+ * A terraform module to create AWS CloudTrail resource.
+ *
+ * [![Terraform validate](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/validate.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/validate.yaml)
+ * [![pre-commit](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/lablabs/terraform-aws-cloudtrail/actions/workflows/pre-commit.yaml)
+ */
+
 module "cloudtrail" {
   source  = "cloudposse/cloudtrail/aws"
   version = "0.22.0"

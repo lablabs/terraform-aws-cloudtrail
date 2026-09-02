@@ -1,11 +1,27 @@
 formatter: markdown table
 
+header-from: cloudtrail.tf
+footer-from: docs/.footer.md
+
+content: |-
+  {{ include "docs/.intro.md" }}
+  {{ .Header }}
+  {{ .Requirements }}
+  {{ .Providers }}
+  {{ .Modules }}
+  {{ .Resources }}
+  {{ .Inputs }}
+  {{ .Outputs }}
+  {{ .Footer }}
+
 output:
-  mode: inject
+  file: README.md
+  mode: replace
   template: |-
-    <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+    <!-- BEGIN_TF_DOCS -->
     {{ .Content }}
-    <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+    <!-- END_TF_DOCS -->
+    {{- printf "\n" -}}
 
 sections:
   hide:
@@ -13,3 +29,7 @@ sections:
 
 sort:
   by: required
+
+settings:
+  default: true
+  required: true
