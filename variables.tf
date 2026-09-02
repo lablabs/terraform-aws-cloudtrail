@@ -109,7 +109,7 @@ variable "bucket_object_lock_configuration" {
   description = "A configuration for S3 object locking (WORM), preventing objects from being deleted or overwritten for a fixed retention period. Set exactly one of `days` or `years`; `mode` defaults to `GOVERNANCE`. Requires `bucket_versioning_enabled` to be `true`. Can be enabled on an existing bucket; the default retention applies only to objects written after it is enabled."
 
   validation {
-    condition     = var.bucket_object_lock_configuration != null ? var.bucket_object_lock_configuration == true : true
+    condition     = var.bucket_object_lock_configuration != null ? var.bucket_versioning_enabled == true : true
     error_message = "var.bucket_versioning_enabled must be true when var.bucket_object_lock_configuration is set."
   }
 
