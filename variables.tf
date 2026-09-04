@@ -114,18 +114,8 @@ variable "bucket_object_lock_configuration" {
   EOT
 
   validation {
-    condition     = var.bucket_object_lock_configuration != null ? var.bucket_versioning_enabled == true : true
-    error_message = "var.bucket_versioning_enabled must be true when var.bucket_object_lock_configuration is set."
-  }
-
-  validation {
     condition     = var.bucket_object_lock_configuration != null ? contains(["GOVERNANCE", "COMPLIANCE"], var.bucket_object_lock_configuration.mode) : true
     error_message = "var.bucket_object_lock_configuration.mode must be either GOVERNANCE or COMPLIANCE."
-  }
-
-  validation {
-    condition     = var.bucket_object_lock_configuration != null && var.bucket_object_lock_configuration.mode == "COMPLIANCE" ? var.bucket_object_lock_compliance_mode_enabled == true : true
-    error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_compliance_mode_enabled to true."
   }
 }
 

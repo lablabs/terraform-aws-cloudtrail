@@ -77,3 +77,24 @@ data "aws_partition" "current" {}
 locals {
   arn_format = "arn:${data.aws_partition.current.partition}"
 }
+
+resource "terraform_data" "bucket_object_lock_validation" {
+  count = var.bucket_object_lock_configuration != null ? 1 : 0
+
+  input = {
+    versioning_enabled      = var.bucket_versioning_enabled
+    compliance_mode_enabled = var.bucket_object_lock_compliance_mode_enabled
+  }
+
+  lifecycle {
+    precondition {
+      condition     = var.bucket_versioning_enabled
+      error_message = "var.bucket_versioning_enabled must be true when var.bucket_object_lock_configuration is set."
+    }
+
+    precondition {
+      condition     = var.bucket_object_lock_configuration.mode != "COMPLIANCE" || var.bucket_object_lock_compliance_mode_enabled
+      error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_compliance_mode_enabled to true."
+    }
+  }
+}
