@@ -94,7 +94,7 @@ resource "terraform_data" "bucket_object_lock_validation" {
 
     precondition {
       condition     = var.bucket_object_lock_configuration.mode != "COMPLIANCE" || var.bucket_object_lock_compliance_mode_enabled
-      error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified for the specified duration. Confirm your decision by setting var.bucket_object_lock_compliance_mode_enabled to true."
+      error_message = "You are about to enable COMPLIANCE mode on the object lock, which cannot be removed or modified. Confirm your decision by setting var.bucket_object_lock_compliance_mode_enabled to true."
     }
   }
 }
